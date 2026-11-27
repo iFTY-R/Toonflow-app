@@ -1,7 +1,7 @@
 services:
   toonflow:
-    # GHCR 镜像。把 yourGithubOwner 换成你的 GitHub 用户名或组织名（必须全小写）。
-    image: ghcr.io/yourGithubOwner/toonflow:latest
+    # GHCR 镜像，地址由仓库名决定（ghcr.io/<owner>/<repo>，全小写）。
+    image: ghcr.io/ifty-r/toonflow-app:latest
     container_name: toonflow
     init: true
     restart: unless-stopped

@@ -116,7 +116,7 @@ docker compose -f compose.yaml pull
 docker compose -f compose.yaml up -d
 
 # 回滚：把编排里的标签改为旧版本或 sha
-# image: ghcr.io/<用户名>/toonflow:sha-<commit>
+# image: ghcr.io/ifty-r/toonflow-app:sha-<commit>
 ```
 
 1Panel 编排页面同样提供拉取镜像与重建操作。不要启用自动更新，升级前先备份。
