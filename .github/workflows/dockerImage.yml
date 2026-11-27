@@ -1,9 +1,10 @@
 name: Docker Image
 
 on:
+  # 使用独立标签前缀，避免与 release.yml 的 v* 标签（全平台打包）冲突
   push:
     tags:
-      - "v*"
+      - "image-v*"
   workflow_dispatch:
 
 permissions:
