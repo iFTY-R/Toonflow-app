@@ -1,0 +1,24 @@
+services:
+  toonflow:
+    # GHCR 镜像。把 yourGithubOwner 换成你的 GitHub 用户名或组织名（必须全小写）。
+    image: ghcr.io/yourGithubOwner/toonflow:latest
+    container_name: toonflow
+    init: true
+    restart: unless-stopped
+    # 只绑定回环地址，由 1Panel 网站反向代理对外；不要直接暴露公网
+    ports:
+      - "127.0.0.1:3000:3000"
+      # 多租户创作入口为固定端口 10888；未启用多租户时可注释本行
+      - "127.0.0.1:10888:10888"
+    environment:
+      - TOONFLOW_SERVER_PORT=3000
+      - TOONFLOW_DATA_DIR=/app/data
+      # 模型配置加密密钥，必须为 32 字节的标准 Base64。下方为内置默认值，开箱可用。
+      # 生产环境建议替换为自己的值：openssl rand -base64 32
+      # 也可在 .env 中定义 TOONFLOW_MULTI_TENANT_SECRET 覆盖此默认值。
+      - "TOONFLOW_MULTI_TENANT_SECRET=${TOONFLOW_MULTI_TENANT_SECRET:-X5FikUq63uIsCrM3NffwndIbpoek1tkQyxx3bGn3++E=}"
+    volumes:
+      # 仅挂载数据目录。启动前必须准备两个东西：
+      #   1) ./data/multiTenant/dataSource.json —— MySQL 连接配置（见 deploy/readme.md）
+      #   2) chown -R 1000:1000 ./data —— 容器以非 root 的 bun 用户运行
+      - ./data:/app/data
