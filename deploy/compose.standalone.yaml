@@ -16,3 +16,10 @@ services:
     volumes:
       # 仅挂载数据目录，不需要任何数据库配置文件
       - ./data:/app/data
+
+# 1Panel 安装应用/网站时使用的外部网络（由 1Panel 创建，故 external: true）。
+# 若你的 1Panel 网络名不是 1panel-network，把下面两处一起改成实际名称
+# （`docker network ls` 可查看）。
+networks:
+  1panel-network:
+    external: true

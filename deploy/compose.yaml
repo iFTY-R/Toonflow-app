@@ -22,3 +22,10 @@ services:
       #   1) ./data/multiTenant/dataSource.json —— MySQL 连接配置（见 deploy/readme.md）
       #   2) chown -R 1000:1000 ./data —— 容器以非 root 的 bun 用户运行
       - ./data:/app/data
+
+# 1Panel 安装应用/网站时使用的外部网络（由 1Panel 创建，故 external: true）。
+# 若你的 1Panel 网络名不是 1panel-network，把下面两处一起改成实际名称
+# （`docker network ls` 可查看）。
+networks:
+  1panel-network:
+    external: true
