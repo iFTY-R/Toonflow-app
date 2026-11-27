@@ -3,23 +3,16 @@
 services:
   toonflow:
     # GHCR 镜像，地址由仓库名决定（ghcr.io/<owner>/<repo>，全小写）。
-    image: ghcr.io/ifty-r/toonflow-app:latest
+    image: ghcr.nju.edu.cn/ifty-r/toonflow-app:latest
     container_name: toonflow
     init: true
     restart: unless-stopped
     # 只绑定回环地址，由 1Panel 网站反向代理对外；不要直接暴露公网
     ports:
-      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:3001:3000"
     environment:
       - TOONFLOW_SERVER_PORT=3000
       - TOONFLOW_DATA_DIR=/app/data
     volumes:
       # 仅挂载数据目录，不需要任何数据库配置文件
       - ./data:/app/data
-
-# 1Panel 安装应用/网站时使用的外部网络（由 1Panel 创建，故 external: true）。
-# 若你的 1Panel 网络名不是 1panel-network，把下面两处一起改成实际名称
-# （`docker network ls` 可查看）。
-networks:
-  1panel-network:
-    external: true
